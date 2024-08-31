@@ -65,6 +65,7 @@ print('NewRapson aplicado 1.6 =', wrep)
 #Continuou no mesmo ponto pois é um ponto extremo.
 
 #1.7
+#Com a Hessiana
 def alfaotimo(w):
     d = -((gradF(w))[:, np.newaxis])
     alfacima = np.dot(gradF(w), d)
@@ -78,6 +79,32 @@ wotimo = w04 - alfa*gradF(w04)
 
 print('Ponto encontrado com o alfaotimo :', wotimo)
 
+
+#Sem a Hessiana     
+def F(w):
+    y = (w[0]**3)*(w[1]**2)-2*(w[0]**3)*w[1]-3*w[0]*w[1]**2+6*w[0]*w[1]
+    return y
+
+alpha = 0.1
+
+def F1(w):
+    wn = w - alpha*gradF(w)
+    y = F(wn)
+    return y
+
+def alphaotimo(w):
+    d = -((gradF(w))[:, np.newaxis])
+    cima = alpha**2*np.dot(gradF(w), d)
+    baixo = 2*(F1(w)-F(w)-alpha*np.dot(gradF(w), d))
+    y = -(cima/baixo)
+    return y
+
+passo_alpha = alphaotimo(w04)
+print('Alpha Otimo sem Hessiana =', passo_alpha)
+wotim = w04 - passo_alpha*gradF(w04)
+
+print('Ponto encontrado com o alfaotimo sem Hessiana :', wotim)
+
 #Como o alfaotimo é negativo o ponto extremo encontrado é um máximo. 
-     
+
 
